@@ -106,5 +106,15 @@
         "x": 560,
         "y": 340,
         "wires": []
+    },
+    {
+        "id": "465e8fc8a5137433",
+        "type": "comment",
+        "z": "e87a9a2dd2c09d14",
+        "name": "",
+        "info": "Example from Rodger Lea:\nhttp://noderedguide.com/node-red-lecture-3-example-3-8-sending-tcp-requests/",
+        "x": 100,
+        "y": 60,
+        "wires": []
     }
 ]
