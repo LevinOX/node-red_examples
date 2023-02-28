@@ -1,0 +1,372 @@
+[
+    {
+        "id": "8497eeea0681aea6",
+        "type": "tab",
+        "label": "read_MQTT_switch",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "69c9e608c4979222",
+        "type": "mqtt in",
+        "z": "8497eeea0681aea6",
+        "name": "",
+        "topic": "LevinOX/sensor",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "56c1eef3a5c679a0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 380,
+        "wires": [
+            [
+                "eecd26f89e30d3a0"
+            ]
+        ]
+    },
+    {
+        "id": "eecd26f89e30d3a0",
+        "type": "json",
+        "z": "8497eeea0681aea6",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 290,
+        "y": 380,
+        "wires": [
+            [
+                "b48451664fcd6ad9"
+            ]
+        ]
+    },
+    {
+        "id": "51c75bb37ad2df2f",
+        "type": "debug",
+        "z": "8497eeea0681aea6",
+        "name": "output_true",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "b48451664fcd6ad9",
+        "type": "switch",
+        "z": "8497eeea0681aea6",
+        "name": "",
+        "property": "payload.analyze",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 430,
+        "y": 380,
+        "wires": [
+            [
+                "2cea40f63b560f86"
+            ],
+            [
+                "c217a735a91652a7",
+                "d457e34eefd6b0f2"
+            ]
+        ]
+    },
+    {
+        "id": "84d2d4e3c5c63daa",
+        "type": "debug",
+        "z": "8497eeea0681aea6",
+        "name": "output_false",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "ff86d356d52b0677",
+        "type": "comment",
+        "z": "8497eeea0681aea6",
+        "name": "",
+        "info": "This is an example from Rodger Lea:\nhttp://noderedguide.com/node-red-lecture-3-example-3-2-using-the-switch-node-to-handle-a-json-object/\n\nFirst connected via\nhttp://www.hivemq.com/demos/websocket-client/\n, later on with MQTT out node.",
+        "x": 100,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "c217a735a91652a7",
+        "type": "change",
+        "z": "8497eeea0681aea6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.note",
+                "pt": "msg",
+                "to": "this is not being analyzed",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 460,
+        "wires": [
+            [
+                "84d2d4e3c5c63daa"
+            ]
+        ]
+    },
+    {
+        "id": "2cea40f63b560f86",
+        "type": "rbe",
+        "z": "8497eeea0681aea6",
+        "name": "if value change > 20%",
+        "func": "deadband",
+        "gap": "20%",
+        "start": "",
+        "inout": "in",
+        "septopics": true,
+        "property": "payload.value",
+        "topi": "topic",
+        "x": 640,
+        "y": 360,
+        "wires": [
+            [
+                "51c75bb37ad2df2f"
+            ]
+        ]
+    },
+    {
+        "id": "f488f7e7c9e6677e",
+        "type": "comment",
+        "z": "8497eeea0681aea6",
+        "name": "Analyze = true",
+        "info": "",
+        "x": 610,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "d457e34eefd6b0f2",
+        "type": "change",
+        "z": "8497eeea0681aea6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 620,
+        "y": 505,
+        "wires": [
+            [
+                "1db6cc161d61d58b"
+            ]
+        ]
+    },
+    {
+        "id": "37282903ee3476f8",
+        "type": "debug",
+        "z": "8497eeea0681aea6",
+        "name": "output_scaled",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 968,
+        "y": 505,
+        "wires": []
+    },
+    {
+        "id": "1db6cc161d61d58b",
+        "type": "range",
+        "z": "8497eeea0681aea6",
+        "minin": "0",
+        "maxin": "10",
+        "minout": "0",
+        "maxout": "255",
+        "action": "scale",
+        "round": false,
+        "property": "payload",
+        "name": "",
+        "x": 798,
+        "y": 505,
+        "wires": [
+            [
+                "37282903ee3476f8"
+            ]
+        ]
+    },
+    {
+        "id": "a225341819285cc9",
+        "type": "comment",
+        "z": "8497eeea0681aea6",
+        "name": "Analyze = false",
+        "info": "",
+        "x": 620,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "18030858ef57985a",
+        "type": "inject",
+        "z": "8497eeea0681aea6",
+        "name": "\"analyze\":false, \"value\":10",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"analyze\":false, \"value\":10}",
+        "payloadType": "str",
+        "x": 170,
+        "y": 120,
+        "wires": [
+            [
+                "c92df0d511e0d140"
+            ]
+        ]
+    },
+    {
+        "id": "c92df0d511e0d140",
+        "type": "mqtt out",
+        "z": "8497eeea0681aea6",
+        "name": "LevinOX/sensor",
+        "topic": "LevinOX/sensor",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "56c1eef3a5c679a0",
+        "x": 460,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "3045a2eb4b2c2df9",
+        "type": "inject",
+        "z": "8497eeea0681aea6",
+        "name": "\"analyze\":true, \"value\":6",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"analyze\":true, \"value\":6}",
+        "payloadType": "str",
+        "x": 160,
+        "y": 180,
+        "wires": [
+            [
+                "c92df0d511e0d140"
+            ]
+        ]
+    },
+    {
+        "id": "2947f3270058234d",
+        "type": "inject",
+        "z": "8497eeea0681aea6",
+        "name": "\"analyze\":true, \"value\":1",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"analyze\":true, \"value\":1}",
+        "payloadType": "str",
+        "x": 160,
+        "y": 240,
+        "wires": [
+            [
+                "c92df0d511e0d140"
+            ]
+        ]
+    },
+    {
+        "id": "56c1eef3a5c679a0",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.mqtt-dashboard.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "3",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]

@@ -1,0 +1,96 @@
+[
+    {
+        "id": "ca321686db507fef",
+        "type": "tab",
+        "label": "HTTP-echo",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "979511d0ea667bbe",
+        "type": "inject",
+        "z": "ca321686db507fef",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Hello There",
+        "payloadType": "str",
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "ffe73d855f9d0df2"
+            ]
+        ]
+    },
+    {
+        "id": "ffe73d855f9d0df2",
+        "type": "websocket out",
+        "z": "ca321686db507fef",
+        "name": "",
+        "server": "",
+        "client": "c1bdb71c43b266a1",
+        "x": 360,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "0a5e08afd29b0984",
+        "type": "websocket in",
+        "z": "ca321686db507fef",
+        "name": "",
+        "server": "",
+        "client": "c1bdb71c43b266a1",
+        "x": 180,
+        "y": 180,
+        "wires": [
+            [
+                "d70b8a857b43466b"
+            ]
+        ]
+    },
+    {
+        "id": "d70b8a857b43466b",
+        "type": "debug",
+        "z": "ca321686db507fef",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "dda5ed74a490b367",
+        "type": "comment",
+        "z": "ca321686db507fef",
+        "name": "",
+        "info": "Example from Rodger Lea:\nhttp://noderedguide.com/node-red-lecture-3-example-3-7-using-websockets-with-node-red/",
+        "x": 100,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "c1bdb71c43b266a1",
+        "type": "websocket-client",
+        "path": "wss://echo.websocket.events/",
+        "tls": "",
+        "wholemsg": "false",
+        "hb": "0",
+        "subprotocol": ""
+    }
+]

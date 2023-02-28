@@ -1,0 +1,181 @@
+[
+    {
+        "id": "b6985d3655cf2f8a",
+        "type": "tab",
+        "label": "read_earthquakes",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9c3fd6cbf5c421b3",
+        "type": "inject",
+        "z": "b6985d3655cf2f8a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "300",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 111,
+        "y": 39,
+        "wires": [
+            [
+                "b4ce19eca57cf2d2"
+            ]
+        ]
+    },
+    {
+        "id": "b4ce19eca57cf2d2",
+        "type": "http request",
+        "z": "b6985d3655cf2f8a",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.csv",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 271,
+        "y": 39,
+        "wires": [
+            [
+                "c6a3c61ec7797c5f"
+            ]
+        ]
+    },
+    {
+        "id": "c6a3c61ec7797c5f",
+        "type": "csv",
+        "z": "b6985d3655cf2f8a",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 111,
+        "y": 119,
+        "wires": [
+            [
+                "506de8a1d4fe5db9",
+                "1f09630fb32d5f47"
+            ]
+        ]
+    },
+    {
+        "id": "506de8a1d4fe5db9",
+        "type": "debug",
+        "z": "b6985d3655cf2f8a",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 261,
+        "y": 119,
+        "wires": []
+    },
+    {
+        "id": "1f09630fb32d5f47",
+        "type": "switch",
+        "z": "b6985d3655cf2f8a",
+        "name": "",
+        "property": "payload.mag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "7",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "3dcb77f2e70ebda6"
+            ]
+        ]
+    },
+    {
+        "id": "3dcb77f2e70ebda6",
+        "type": "change",
+        "z": "b6985d3655cf2f8a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "PANIC!",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 260,
+        "y": 180,
+        "wires": [
+            [
+                "57a6deb2052d27cd"
+            ]
+        ]
+    },
+    {
+        "id": "57a6deb2052d27cd",
+        "type": "debug",
+        "z": "b6985d3655cf2f8a",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "2344bf8f24cfca6e",
+        "type": "comment",
+        "z": "b6985d3655cf2f8a",
+        "name": "",
+        "info": "Tutorial from:\nhttps://nodered.org/docs/tutorials/second-flow",
+        "x": 140,
+        "y": 240,
+        "wires": []
+    }
+]
