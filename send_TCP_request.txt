@@ -1,0 +1,110 @@
+[
+    {
+        "id": "e87a9a2dd2c09d14",
+        "type": "tab",
+        "label": "send_TCP_request",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "dbc8be2642c54fd4",
+        "type": "inject",
+        "z": "e87a9a2dd2c09d14",
+        "name": "inject",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "43d4c2cc2822f99d"
+            ]
+        ]
+    },
+    {
+        "id": "43d4c2cc2822f99d",
+        "type": "function",
+        "z": "e87a9a2dd2c09d14",
+        "name": "Set GET request string",
+        "func": "msg.payload = \"GET / HTTP/1.1\\r\\nHost: www.google.com\\r\\n\\r\\n\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 180,
+        "wires": [
+            [
+                "49d6a8b155a641a4"
+            ]
+        ]
+    },
+    {
+        "id": "49d6a8b155a641a4",
+        "type": "tcp request",
+        "z": "e87a9a2dd2c09d14",
+        "name": "",
+        "server": "www.google.com",
+        "port": "80",
+        "out": "time",
+        "ret": "buffer",
+        "splitc": "1000",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 370,
+        "y": 240,
+        "wires": [
+            [
+                "edbac5d164e339f4"
+            ]
+        ]
+    },
+    {
+        "id": "edbac5d164e339f4",
+        "type": "function",
+        "z": "e87a9a2dd2c09d14",
+        "name": "Parse response buffer into string",
+        "func": "msg.payload = msg.payload.toString('utf8');\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 300,
+        "wires": [
+            [
+                "8834653483b24df3"
+            ]
+        ]
+    },
+    {
+        "id": "8834653483b24df3",
+        "type": "debug",
+        "z": "e87a9a2dd2c09d14",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 340,
+        "wires": []
+    }
+]
